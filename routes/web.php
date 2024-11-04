@@ -6,15 +6,16 @@ use App\Http\Controllers\WebController;
 
 
 
-Route::controller(WebController::class)->group(function () {
-    Route::get('', 'index');
-    Route::get('/shop', 'shop');
-    Route::get('/about', 'about');
-    Route::get('/blog', 'blog');
-    Route::get('/contact', 'contact');
-    Route::get('/services', 'services');
-    Route::get('/cart', 'cart');
-});
+Route::get('/', [WebController::class, 'index'])->name('home');
+Route::get('/shop', [WebController::class, 'shop'])->name('shop');
+Route::get('/about', [WebController::class, 'about'])->name('about');
+Route::get('/blog', [WebController::class, 'blog'])->name('blog');
+Route::get('/contact', [WebController::class, 'contact'])->name('contact');
+Route::get('/services', [WebController::class, 'services'])->name('services');
+Route::get('/cart', [WebController::class, 'cart'])->name('cart');
+Route::get('/productDetail', [WebController::class, 'productDetail'])->name('productDetail');
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');

@@ -40,4 +40,9 @@ class WebController extends Controller
     {
         return view('Web.cart');
     }
+
+    public function productDetail()
+    {
+        return view('Web.ProductDetail');
+    }
 }

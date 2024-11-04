@@ -9,35 +9,30 @@
         <div class="collapse navbar-collapse" id="navbarsFurni">
             <ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
                 <li class="nav-item {{ Request::is('/') ? 'active' : '' }}">
-                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item {{ Request::is('shop') ? 'active' : '' }}">
-                    <a class="nav-link" href="/shop">Shop</a>
+                    <a class="nav-link" href="{{ route('shop') }}">Shop</a>
                 </li>
                 <li class="nav-item {{ Request::is('about') ? 'active' : '' }}">
-                    <a class="nav-link" href="/about">About us</a>
+                    <a class="nav-link" href="{{ route('about') }}">About us</a>
                 </li>
                 <li class="nav-item {{ Request::is('services') ? 'active' : '' }}">
-                    <a class="nav-link" href="/services">Services</a>
+                    <a class="nav-link" href="{{ route('services') }}">Services</a>
                 </li>
                 <li class="nav-item {{ Request::is('blog') ? 'active' : '' }}">
-                    <a class="nav-link" href="/blog">Blog</a>
+                    <a class="nav-link" href="{{ route('blog') }}">Blog</a>
                 </li>
                 <li class="nav-item {{ Request::is('contact') ? 'active' : '' }}">
-                    <a class="nav-link" href="/contact">Contact us</a>
+                    <a class="nav-link" href="{{ route('contact') }}">Contact us</a>
                 </li>
-            </ul>
-
-            <!-- Styled Search Form -->
-            <form class="d-flex ms-3" action="##" method="GET" style="max-width: 250px; width: 100%;">
+                <li class="nav-item">
+                <form class="d-flex" action="##" method="GET" style="max-width: 250px; width: 100%;">
             <input class="form-control me-2 rounded-pill px-2" type="search" placeholder="Search" aria-label="Search" name="query" 
            style="border: 1px solid white; background-color: transparent; color: white; padding-top: 4px; padding-bottom: 4px;">
              <button class="btn btn-primary rounded-pill px-3" type="submit">Go</button>
             </form>
-
-
-
-            <ul class="custom-navbar-cta navbar-nav mb-2 mb-md-0 ms-5">
+                </li>
                 @if (Route::has('login'))
                     @auth
                     @else
