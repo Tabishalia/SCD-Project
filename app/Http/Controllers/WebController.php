@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
+use App\Models\Product;
 
 class WebController extends Controller
 {
     public function index()
-    {
-        return view('web.index');
+    {   
+        $products = Product::all();
+        return view('web.index',compact('products'));
     }
 
     public function shop()
@@ -40,8 +42,8 @@ class WebController extends Controller
         return view('Web.cart');
     }
 
-    public function productDetail()
+    public function productDetail(Product $product)
     {
-        return view('Web.ProductDetail');
+        return view('Web.ProductDetail', compact('product'));
     }
 }
