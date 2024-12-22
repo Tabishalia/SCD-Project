@@ -10,23 +10,22 @@ use App\Http\Controllers\ProductController;
 
 Route::get('/', [WebController::class, 'index'])->name('home');
 Route::get('/shop', [WebController::class, 'shop'])->name('shop');
+Route::get('/shop/{id}', [WebController::class, 'show'])->name('product.show');
+
 Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/blog', [WebController::class, 'blog'])->name('blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('contact');
 Route::get('/services', [WebController::class, 'services'])->name('services');
 Route::get('/cart', [WebController::class, 'cart'])->name('cart');
-Route::get('/productDetail{product}', [WebController::class, 'productDetail'])->name('productDetail');
+Route::get('/productDetail/{product}', [WebController::class, 'productDetail'])->name('productDetail');
+Route::get('/index/suggestions', [WebController::class, 'getProductSuggestions'])->name('index.search.suggestions');
 
 
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
-// Route::resource('categories', CategoryController::class);
-// Route::resource('products', ProductController::class);
+
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', [ProductController::class, 'index'])->name('dashboard'); // Home dashboard

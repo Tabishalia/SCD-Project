@@ -53,7 +53,7 @@ class ProductController extends Controller
 
     public function update(Request $request, Product $product)
     {
-        $request->validate([
+        $validated =  $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
@@ -70,8 +70,8 @@ class ProductController extends Controller
             $product->image = $imagePath;
         }
 
-        $product->update();
-        return redirect()->route('dashboard')->with('success', 'Movie updated successfully!');
+        $product->update($validated);
+        return redirect()->route('dashboard')->with('success', 'Product updated successfully!');
     }
     public function show(Product $product)
     {

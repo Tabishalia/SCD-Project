@@ -26,12 +26,19 @@
                 <li class="nav-item {{ Request::is('contact') ? 'active' : '' }}">
                     <a class="nav-link" href="{{ route('contact') }}">Contact us</a>
                 </li>
-                <li class="nav-item">
-                <form class="d-flex" action="##" method="GET" style="max-width: 250px; width: 100%;">
-            <input class="form-control me-2 rounded-pill px-2" type="search" placeholder="Search" aria-label="Search" name="query" 
-           style="border: 1px solid white; background-color: transparent; color: white; padding-top: 4px; padding-bottom: 4px;">
-             <button class="btn btn-primary rounded-pill px-3" type="submit">Go</button>
-            </form>
+                <li>
+                <form class="d-flex" action="{{ request()->url() }}" method="GET" style="max-width: 250px; width: 100%;">
+                <input 
+                type="search" 
+                id="search-bar" 
+                name="query" 
+                class="form-control me-2 rounded-pill px-2" 
+                placeholder="Search" 
+                autocomplete="off"
+                style="border: 1px solid white; background-color: transparent; color: white; padding: 4px; flex: 1;">
+                <button type="submit" class="btn btn-outline-light rounded-pill px-3">Go</button>
+                </form>
+                <div id="suggestion" class="dropdown-menu" style="width: 250px; display: none; color: red !important;"></div>
                 </li>
                 @if (Route::has('login'))
                     @auth

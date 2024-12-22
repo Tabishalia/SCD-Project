@@ -98,4 +98,51 @@
 				</div>
 
 			</div>
+			<script>
+$(document).ready(function () {
+    $('#search-bar').on('keyup', function () {
+        let query = $(this).val();
+
+        // Universal suggestion route
+        let searchUrl = "{{ route('index.search.suggestions') }}";
+
+        if (query.length >= 3) {
+            $.ajax({
+                url: searchUrl,
+                method: 'GET',
+                data: { query: query },
+                success: function (response) {
+                    let suggestions = response.suggestions;
+                    let suggestionList = '';
+
+                    if (suggestions.length > 0) {
+                        suggestions.forEach(function (product) {
+                            suggestionList += `
+                                <a class="dropdown-item" href="/productDetail/${product.id}">
+                                    ${product.name}
+                                </a>`;
+                        });
+                        $('#suggestion').html(suggestionList).show();
+                    } else {
+                        $('#suggestion').html('<div class="dropdown-item text-muted">No products found</div>').show();
+                    }
+                },
+                error: function () {
+                    $('#suggestion').hide();
+                }
+            });
+        } else {
+            $('#suggestion').hide();
+        }
+    });
+
+    // Hide dropdown when clicking outside
+    $(document).on('click', function (e) {
+        if (!$(e.target).closest('#search-bar, #suggestion').length) {
+            $('#suggestion').hide();
+        }
+    });
+});
+</script>
+
 		</footer>

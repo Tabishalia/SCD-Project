@@ -30,6 +30,11 @@ a {
   a.more {
     font-weight: 600; }
 
+    #suggestion a {
+      color: black !important; /* Default color for links */
+  }
+  
+
 .custom-navbar {
   background: #3b5d50 !important;
   padding-top: 20px;
