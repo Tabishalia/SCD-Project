@@ -143,6 +143,111 @@ $(document).ready(function () {
         }
     });
 });
+
 </script>
+<script>
+$(document).ready(function () {
+
+    // Add product to cart
+    $(document).on('click', '.add-to-cart', function () {
+        const productId = $(this).data('id');
+        const productName = $(this).data('name');
+        const productPrice = $(this).data('price');
+        const productImage = $(this).data('image');
+        const productQuantity = 1;
+
+        $.ajax({
+            url: '{{ route('cart.add') }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id: productId,
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: productQuantity
+            },
+            success: function (response) {
+                alert('Product added to cart!');
+                updateCartUI(response.cart);
+            }
+        });
+    });
+
+    // Remove product from cart
+    $(document).on('click', '.remove-from-cart', function(e) {
+    e.preventDefault();
+    
+    var productId = $(this).data('id'); // Get product ID
+    
+    $.ajax({
+        url: '{{ route('cart.remove', ':id') }}'.replace(':id', productId), // Route to delete product
+        method: 'POST',
+        data: {
+            _token: '{{ csrf_token() }}' // CSRF token for security
+        },
+        success: function(response) {
+            if (response.success) {
+                // Product removed from cart, update the UI
+                alert(response.message); // You can replace with a notification or update cart display
+                location.reload(); // Reload the page or update the cart dynamically
+            } else {
+                alert(response.message); // Handle error case
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('Error:', error); // Handle errors if any
+        }
+    });
+});
+
+
+    // Update product quantity
+    $(document).on('change', '.quantity-amount', function () {
+        const productId = $(this).data('id');
+        const quantity = $(this).val();
+
+        $.ajax({
+            url: `/cart/update/${productId}`,
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                quantity: quantity
+            },
+            success: function (response) {
+                updateCartUI(response.cart);
+            }
+        });
+    });
+
+    // Update the cart UI after actions
+    function updateCartUI(cart) {
+        let cartTotal = 0;
+        $('#cart-table-body').empty();
+
+        for (let id in cart) {
+            const item = cart[id];
+            const total = item.price * item.quantity;
+            cartTotal += total;
+
+            $('#cart-table-body').append(`
+                <tr data-id="${id}">
+                    <td><img src="${item.image}" width="50"></td>
+                    <td>${item.name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>
+                        <input type="number" class="form-control text-center quantity-amount" value="${item.quantity}" data-id="${id}" min="1">
+                    </td>
+                    <td>$${total.toFixed(2)}</td>
+                    <td><button class="btn btn-black btn-sm remove-from-cart" data-id="${id}">X</button></td>
+                </tr>
+            `);
+        }
+
+        $('#cart-total').text(cartTotal.toFixed(2));
+    }
+});
+</script>
+
 
 		</footer>

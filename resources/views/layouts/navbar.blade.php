@@ -54,9 +54,9 @@
                     @endauth
                 @endif
 
-                <li class="nav-item {{ Request::is('cart') ? 'active' : '' }}">
-                    <a class="nav-link" href="/cart">
-                        <img src="/build/assets/images/cart.svg" alt="Cart">
+                <li class="nav-item {{ Request::is('cart.view') ? 'active' : '' }}">
+                    <a class="nav-link" href="{{ route('cart.view') }}">
+                        <img src="/build/assets/images/cart.svg" alt="Cart"> 
                     </a>
                 </li>
             </ul>

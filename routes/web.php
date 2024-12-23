@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WebController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 
 
 
@@ -16,9 +17,15 @@ Route::get('/about', [WebController::class, 'about'])->name('about');
 Route::get('/blog', [WebController::class, 'blog'])->name('blog');
 Route::get('/contact', [WebController::class, 'contact'])->name('contact');
 Route::get('/services', [WebController::class, 'services'])->name('services');
-Route::get('/cart', [WebController::class, 'cart'])->name('cart');
 Route::get('/productDetail/{product}', [WebController::class, 'productDetail'])->name('productDetail');
 Route::get('/index/suggestions', [WebController::class, 'getProductSuggestions'])->name('index.search.suggestions');
+
+
+Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/cart/update/{id}', [CartController::class, 'updateCart'])->name('cart.update');
+Route::post('/cart/remove/{id}', [CartController::class, 'removeFromCart'])->name('cart.remove');
+Route::get('/cart', [CartController::class, 'viewCart'])->name('cart.view');
+
 
 
 

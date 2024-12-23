@@ -24,8 +24,8 @@
                 <p class="text-muted">
                     {{ $product->description }}
                 </p>
-                <button class="btn btn-success btn-lg mb-3">Add to Cart</button>
-                
+                <button class="btn btn-success btn-lg mb-3 add-to-cart" data-id="{{ $product->id }}" data-name="{{ $product->name }}" data-price="{{ $product->price }}" data-image="{{ $product->image_url }}">Add to Cart</button>
+
                 <div class="reviews">
                     <h5>Customer Reviews</h5>
                     <p class="text-warning">
